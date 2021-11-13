@@ -1,11 +1,12 @@
 package com.vurtnewk.datastructure.study01
 
+import androidx.core.util.rangeTo
 import org.junit.Test
 
 class Test01 {
 
     @Test
-    fun testSwap(){
+    fun testSwap() {
 
         var a = 5
         var b = 6
@@ -32,12 +33,11 @@ class Test01 {
          */
         a = a xor b
         b = a xor b
-        a=  a xor b
+        a = a xor b
 
 //        var p1 = Person("张三")
 //        var p2 = Person("李四")
 //        p1 = p1 xor p2
-
 
 
         println("a = $a , b= $b")
@@ -45,4 +45,63 @@ class Test01 {
 
 //    data class Person(val name:String)
 
+
+    /**
+     * 冒泡排序
+     * 两两对比后，第一轮会找出最大值，放到最后
+     * 一共持续 N-1 轮
+     */
+    private fun bubbleSort(array: IntArray) {
+        //每次能把最后一个值给排好，所以每次递减一次
+        for (j in array.size downTo 1) {
+            var flag = true
+            for (i in 0..array.size - 2) {
+                if (array[i] > array[i + 1]) {
+                    val temp = array[i]
+                    array[i] = array[i + 1]
+                    array[i + 1] = temp
+                    flag = false
+                }
+            }
+            if (flag) {//说明一次都没进排序 就可以终止循环
+                break
+            }
+        }
+    }
+
+    @Test
+    fun testBubble() {
+        val array = intArrayOf(3, 2, 6, 1, 9, 5, 4, 8, 7)
+        bubbleSort(array)
+        array.forEach { println(it) }
+    }
+
+    /**
+     * 选择排序
+     * 每次选择一个放到第一位
+     */
+    private fun selectSearch(arr: IntArray) {
+
+        for (i in arr.indices) {
+            var index = i
+            for (j in i+1 until arr.size) {
+                if (arr[j] < arr[index]) {
+                    index = j
+                }
+            }
+            if (index != i) {
+                val temp = arr[index]
+                arr[index] = arr[i]
+                arr[i] = temp
+            }
+        }
+    }
+
+    @Test
+    fun testSelectSearch() {
+        val array = intArrayOf(3, 2, 6, 1, 9, 5, 4, 8, 7)
+//        val array = intArrayOf(3, 2, 6)
+        selectSearch(array)
+        array.forEach { println(it) }
+    }
 }
