@@ -2,6 +2,7 @@ package com.vurtnewk.datastructure.study01
 
 import androidx.core.util.rangeTo
 import org.junit.Test
+import kotlin.math.pow
 
 class Test01 {
 
@@ -84,7 +85,7 @@ class Test01 {
 
         for (i in arr.indices) {
             var index = i
-            for (j in i+1 until arr.size) {
+            for (j in i + 1 until arr.size) {
                 if (arr[j] < arr[index]) {
                     index = j
                 }
