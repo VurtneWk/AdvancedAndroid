@@ -5,7 +5,7 @@ package com.vurtnewk.datastructure.study01
  * pokerColors 花色
  * cardPoints 点数
  */
-class Cards(val pokerColors: Int, val cardPoints: Int) : Comparable<Cards> {
+class Cards(private val pokerColors: Int, private val cardPoints: Int) : Comparable<Cards> {
 
     override fun compareTo(other: Cards): Int {
         if (this.cardPoints > other.cardPoints) {

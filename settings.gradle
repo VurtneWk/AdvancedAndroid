@@ -10,3 +10,4 @@ rootProject.name = "AdvancedAndroid"
 include ':app'
 include ':ui_study'
 include ':datastructure'
+include ':base'
