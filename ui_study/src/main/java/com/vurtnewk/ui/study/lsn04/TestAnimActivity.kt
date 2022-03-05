@@ -9,7 +9,7 @@ class TestAnimActivity : BaseActivity() {
 
 
     override fun initData() {
-
+        //test
     }
 
     override fun initView() {
