@@ -2,4 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vurtnewk.base">
 
+    <application
+        android:name=".BaseApp"/>
 </manifest>
