@@ -28,6 +28,7 @@ class Test {
      */
     private fun radixSort(list: LinkedList<MaJiang>) {
         //先对点数进行分组
+
         //9个链表的数组
         val rankList: Array<LinkedList<MaJiang>?> = arrayOfNulls(9)
         //初始化9个链表

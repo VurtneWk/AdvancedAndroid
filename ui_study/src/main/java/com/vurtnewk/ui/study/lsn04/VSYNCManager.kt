@@ -8,6 +8,7 @@ class VSYNCManager private constructor() {
 
 
     private val list = mutableListOf<AnimationFrameCallback>()
+    //模拟系统的16微妙
     private val runnable: Runnable = Runnable {
         while (true) {
             Thread.sleep(16)
