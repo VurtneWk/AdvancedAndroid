@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".lsn02.TestPaintActivity" />
+        <activity android:name=".lsn04.TestAnimActivity" />
     </application>
 
 </manifest>

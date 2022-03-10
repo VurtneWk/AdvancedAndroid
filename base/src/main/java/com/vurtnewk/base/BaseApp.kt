@@ -1,6 +1,7 @@
 package com.vurtnewk.base
 
 import android.app.Application
+import com.blankj.utilcode.util.Utils
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
@@ -21,5 +22,6 @@ class BaseApp : Application() {
                 .tag("AndroidAdvance") // (Optional) Global tag for every log. Default PRETTY_LOGGER
                 .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
+        Utils.init(this)
     }
 }

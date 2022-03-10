@@ -1,10 +1,8 @@
 package com.vurtnewk.ui.study.lsn02
 
+import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 
@@ -16,11 +14,14 @@ class PaintMethodView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private var mPaint: Paint = Paint()
-    private var mPaint2: Paint = Paint()
-    private var mPaint3: Paint = Paint()
+    private var mPaint: Paint = Paint().also {
+        it.strokeWidth = 4F
+        it.color = Color.BLUE
+        it.style = Paint.Style.STROKE
+        it.isAntiAlias = true
+    }
 
-    val path = Path()
+    private val path = Path()
 
     init {
 //        mPaint.setColor(Color.RED);// 设置颜色
@@ -34,18 +35,11 @@ class PaintMethodView @JvmOverloads constructor(
 //        mPaint3.isAntiAlias = true
 
 //        mPaint.style = Paint.Style.FILL //描边效果
-//        mPaint2.style = Paint.Style.FILL
-//        mPaint3.style = Paint.Style.FILL
 //
 //        mPaint.strokeCap = Paint.Cap.BUTT
-//        mPaint2.strokeCap = Paint.Cap.ROUND
-//        mPaint3.strokeCap = Paint.Cap.SQUARE
 //
 //        mPaint.strokeWidth = 80F
-//        mPaint2.strokeWidth = 80F
-//        mPaint3.strokeWidth = 80F
 
-//        mPaint2.strokeWidth = 4F
 //        mPaint.setStrokeWidth(4);//描边宽度
 //        mPaint.setStrokeCap(Paint.Cap.ROUND); //圆角效果
 //        mPaint.setStrokeJoin(Paint.Join.MITER);//拐角风格
@@ -72,39 +66,82 @@ class PaintMethodView @JvmOverloads constructor(
 //        canvas.drawCircle(400F, 200F, 100F, mPaint2)
 //        canvas.drawCircle(650F, 200F, 100F, mPaint3)
 
+//        testCornerPathEffect(canvas)
+        testDashPathEffect(canvas)
+    }
 
+    //https://blog.csdn.net/lu1024188315/article/details/77370547
+    private fun testDashPathEffect(canvas: Canvas) {
+        path.moveTo(100F, 600F)
+        path.lineTo(400F, 100F)
+        path.lineTo(700F, 900F)
+        canvas.drawPath(path, mPaint)
 
-//        region Paint.Cap部分
+        mPaint.color = Color.RED
+        mPaint.pathEffect = DashPathEffect(floatArrayOf(20F, 10F, 100F, 100F), 0F)
+        canvas.translate(0F, 100F)
+        canvas.drawPath(path, mPaint)
 
-//        mPaint.strokeWidth = 80F
-//        mPaint.isAntiAlias = true
-//        mPaint.color = Color.GREEN
-//        mPaint.style = Paint.Style.STROKE
-//
-//        mPaint.strokeCap = Paint.Cap.BUTT
-//        canvas.drawLine(100F, 200F, 400F, 200F, mPaint)
-//
-//        mPaint.strokeCap = Paint.Cap.SQUARE
-//        canvas.drawLine(100F, 400F, 400F, 400F, mPaint)
-//
-//        mPaint.strokeCap = Paint.Cap.ROUND
-//        canvas.drawLine(100F, 600F, 400F, 600F, mPaint)
-//
-//        //垂直画出x=100这条线
-//        mPaint.reset()
-//        mPaint.strokeWidth = 2F
-//        mPaint.color = Color.RED
-//        canvas.drawLine(100F, 50F, 100F, 750F, mPaint)
+        mPaint.color = Color.BLACK
+        mPaint.pathEffect = DashPathEffect(floatArrayOf(20F, 10F, 100F, 100F), 15F)
+        canvas.translate(0F, 100F)
+        canvas.drawPath(path, mPaint)
+    }
+
+    private fun testCornerPathEffect(canvas: Canvas) {
+        mPaint.strokeWidth = 4F
+        mPaint.color = Color.BLUE
+        mPaint.style = Paint.Style.STROKE
+
+        path.moveTo(100F, 600F)
+        path.lineTo(400F, 100F)
+        path.lineTo(700F, 900F)
+
+        canvas.drawPath(path, mPaint)
+
+        //画笔改为红色花第二条线
+        mPaint.color = Color.RED
+        mPaint.pathEffect = CornerPathEffect(100F)//角度为100
+        canvas.drawPath(path, mPaint)
+
+        mPaint.color = Color.BLACK
+        mPaint.pathEffect = CornerPathEffect(200F)//角度为200
+        canvas.drawPath(path, mPaint)
+    }
+
+    private fun testPaintCap(canvas: Canvas) {
+        //        region Paint.Cap部分
+
+        mPaint.strokeWidth = 80F
+        mPaint.isAntiAlias = true
+        mPaint.color = Color.GREEN
+        mPaint.style = Paint.Style.STROKE
+
+        mPaint.strokeCap = Paint.Cap.BUTT
+        canvas.drawLine(100F, 200F, 400F, 200F, mPaint)
+
+        mPaint.strokeCap = Paint.Cap.SQUARE
+        canvas.drawLine(100F, 400F, 400F, 400F, mPaint)
+
+        mPaint.strokeCap = Paint.Cap.ROUND
+        canvas.drawLine(100F, 600F, 400F, 600F, mPaint)
+
+        //垂直画出x=100这条线
+        mPaint.reset()
+        mPaint.strokeWidth = 2F
+        mPaint.color = Color.RED
+        canvas.drawLine(100F, 50F, 100F, 750F, mPaint)
 
         //endregion
+    }
 
+    private fun testPaintJoin(canvas: Canvas) {
         //region Paint.Join
 
         mPaint.strokeWidth = 80F
         mPaint.color = Color.RED
         mPaint.style = Paint.Style.STROKE
         mPaint.isAntiAlias = true
-
 
         path.moveTo(100F, 100F)
         path.lineTo(450F, 100F)
@@ -124,5 +161,10 @@ class PaintMethodView @JvmOverloads constructor(
         mPaint.strokeJoin = Paint.Join.ROUND
         canvas.drawPath(path, mPaint)
 
+        //endregion
+    }
+
+    private fun testShader(canvas: Canvas) {
+        mPaint.shader = SweepGradient(200f, 200f, Color.BLUE, Color.RED) //设置环形渲染器
     }
 }

@@ -2,10 +2,12 @@ package com.vurtnewk.ui.study
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.orhanobut.logger.Logger
 import com.vurtnewk.base.LaunchAdapter
 import com.vurtnewk.basemodule.ClassEntity
 import com.vurtnewk.ui.study.databinding.ActivityMainBinding
 import com.vurtnewk.ui.study.lsn02.TestPaintActivity
+import com.vurtnewk.ui.study.lsn04.TestAnimActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val data by lazy {
         mutableListOf<ClassEntity>().also {
             it.add(ClassEntity("TestPaint", TestPaintActivity::class.java))
+            it.add(ClassEntity("Anim", TestAnimActivity::class.java))
         }
     }
 
