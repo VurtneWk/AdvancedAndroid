@@ -8,6 +8,8 @@ import android.os.Message
 import com.orhanobut.logger.Logger
 import com.vurtnewk.architecture.databinding.ActivityHandlerSampleBinding
 import com.vurtnewk.base.BaseActivity
+import java.lang.ref.WeakReference
+import java.util.*
 
 /**
  * @author VurtneWk
@@ -27,16 +29,17 @@ class HandlerSampleActivity : BaseActivity() {
 
     companion object {
 
-//        private val handler1 = object : Handler(Looper.getMainLooper()) {
-//            override fun handleMessage(msg: Message) {
-//                super.handleMessage(msg)
-//            }
-//        }
-//
-//        private val handler2 = Handler(Looper.getMainLooper()) {
-//
-//            true
-//        }
+        private val handler1 = object : Handler(Looper.getMainLooper()) {
+
+            override fun handleMessage(msg: Message) {
+                super.handleMessage(msg)
+            }
+        }
+
+        private val handler2 = Handler(Looper.getMainLooper()) {
+
+            true
+        }
     }
 
     private val handler1 = object : Handler(Looper.getMainLooper()) {
@@ -50,6 +53,17 @@ class HandlerSampleActivity : BaseActivity() {
         Logger.d("${msg.obj} -- ${msg.what}")
         binding.tvText.text = msg.obj.toString()
         true
+    }
+
+    class Handler3 constructor(activity: HandlerSampleActivity) : Handler(Looper.getMainLooper()) {
+
+        val weakReference = WeakReference(activity)
+
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            weakReference.get()?.binding?.tvText?.text = ""
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +92,8 @@ class HandlerSampleActivity : BaseActivity() {
 
 
         }.start()
+
+//        handler1.dispatchMessage(Message.obtain())
     }
 
 
